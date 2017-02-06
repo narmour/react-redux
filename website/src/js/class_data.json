@@ -1,0 +1,54 @@
+[
+  {
+    title:"CS115",
+    prereqs: []
+  },
+  {
+    title:"CS215",
+    prereqs:["CS115"]
+  },
+  {
+    title:"CS242",
+    prereqs:[]
+  },
+  {
+    title:"CS252",
+    prereqs:["CS115","CS215","CS242"]
+  },
+  {
+    title:"CS315",
+    prereqs:["CS115", "CS215"]
+  },
+  {
+    title:"CS351",
+    prereqs:["CS215","CS252"]
+  },
+  {
+    title:"CS355",
+    prereqs:["CS215"]
+  },
+  {
+    title:"CS370",
+    prereqs:["CS215"]
+  },
+  {
+    title:"CS415",
+    prereqs:["CS115","CS215","CS315"]
+  },
+  {
+    title:"CS450",
+    prereqs:["CS115","CS215","CS315"]
+  },
+  {
+    title:"CS454",
+    prereqs:["CS115","CS215","CS315"]
+  },
+  {
+    title:"CS460",
+    prereqs:["CS115","CS215","CS315"]
+  },
+  {
+    title:"CS470",
+    prereqs:["CS115","CS215","CS315"]
+  }
+]

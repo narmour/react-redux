@@ -1,0 +1,44 @@
+[
+  {
+    student_name: "Nick Armour",
+    completed_courses: [
+      {
+        course:"CS115",
+        grade:"A",
+        department:"Computer Science"
+      },
+      {
+        course:"CS215",
+        grade:"B",
+        department:"Computer Science"
+
+      },
+      {
+        course:"CS242",
+        grade:"B",
+        department:"Computer Science"
+      },
+      {
+        course:"CS252",
+        grade:"A",
+        department:"Computer Science"
+      },
+      {
+        course:"CS315",
+        grade:"A",
+        department:"Computer Science"
+      },
+      {
+        course:"CS351",
+        grade:"A",
+        department:"Computer Science"
+      },
+      {
+        course:"CS370",
+        grade:"A",
+        department:"Computer Science"
+      }
+      
+      ]
+  }
+  ]
