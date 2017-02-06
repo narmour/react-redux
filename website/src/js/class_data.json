@@ -1,54 +1,75 @@
 [
   {
-    title:"CS115",
-    prereqs: []
+    "title":"CS115",
+    "prereqs": [],
+    "type":"CORE"
   },
   {
-    title:"CS215",
-    prereqs:["CS115"]
+    "title":"CS215",
+    "prereqs":["CS115"],
+    "type":"CORE"
   },
   {
-    title:"CS242",
-    prereqs:[]
+    "title":"CS242",
+    "prereqs":[],
+    "type":"CORE"
   },
   {
-    title:"CS252",
-    prereqs:["CS115","CS215","CS242"]
+    "title":"CS252",
+    "prereqs":["CS115","CS215","CS242"],
+    "type":"CORE"
   },
   {
-    title:"CS315",
-    prereqs:["CS115", "CS215"]
+    "title":"CS315",
+    "prereqs":["CS115", "CS215"],
+    "type":"CORE"
   },
   {
-    title:"CS351",
-    prereqs:["CS215","CS252"]
+    "title":"CS351",
+    "prereqs":["CS215","CS252"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS355",
-    prereqs:["CS215"]
+    "title":"CS355",
+    "prereqs":["CS215"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS370",
-    prereqs:["CS215"]
+    "title":"CS370",
+    "prereqs":["CS215"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS415",
-    prereqs:["CS115","CS215","CS315"]
+    "title":"CS415",
+    "prereqs":["CS115","CS215","CS315"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS450",
-    prereqs:["CS115","CS215","CS315"]
+    "title":"CS450",
+    "prereqs":["CS115","CS215","CS315"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS454",
-    prereqs:["CS115","CS215","CS315"]
+    "title":"CS454",
+    "prereqs":["CS115","CS215","CS315"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS460",
-    prereqs:["CS115","CS215","CS315"]
+    "title":"CS460",
+    "prereqs":["CS115","CS215","CS315"],
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
-    title:"CS470",
-    prereqs:["CS115","CS215","CS315"]
+    "title":"CS470",
+    "prereqs":["CS115","CS215","CS315"],
+    "type":"CORE",
+    "department": "Computer Science"
   }
 ]
