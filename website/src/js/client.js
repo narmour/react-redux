@@ -2,27 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {courseApp} from './store';
-
-
-
-/*
- *
- * CourseFinder -  contains input box, courses taken table,available courses table
- * InputBar - Receives user input
- * TakenTable - table listing completed courses based on user input name
- * AvailableTable- table listing all avaialble courses based on user input name
- * TableHeader - functional component returns header for our two tables
- * TableRow - functional component returns a row with td for our tables
- */
-
-
-
-
-
-
-
-
-
+import {changeStudent} from './store';
 
 
 
@@ -30,7 +10,6 @@ import {courseApp} from './store';
 /*
  * LOAD IN MOCK JSON DATA
  */
-var student_data = require('./student_data.json');
 var class_data = require('./class_data.json');
 
 
@@ -39,7 +18,6 @@ var class_data = require('./class_data.json');
  */
 
 var store = createStore(courseApp);
-console.log(store.getState());
 
 
 
@@ -51,31 +29,34 @@ console.log(store.getState());
 
 function availCourses(completed_courses){
 
+
     // return array
     var ret = [];
+
+
+
+    console.log(completed_courses);
 
     // for each class in class_data,
     class_data.forEach(function(course){
         //if course not in completed_courses or ret array,  check for prereqs
         if(completed_courses.findIndex(c => c.course ===course.title) ==-1){
+            console.log("NOT COMPLETED: " + course.title);
+            var met = true;
             course.prereqs.forEach(function(p){
-                var preReqs = true;
                 // if prereq not in completed_courses, prereqs not met
                 if(completed_courses.findIndex(c =>c.course ===p) ==-1){
-                    preReqs = false;
+                    console.log("didnt find " + p+ "for " + course.title);
+                    met = false;
                 }
-                //if prereqs are met and its not in return list, add it to return list
-                if(preReqs && ret.findIndex(x=> x.title===course.title) ==-1){
-                    ret.push(course);
-                }
-                // reset preReq bool.
-                preReqs = true;
             });
-
         }
+            //if prereqs are met and its not in return list, add it to return list
+            if(met && ret.findIndex(x=> x.title===course.title) ==-1)
+                    ret.push(course);
+
     });
 
-    console.log(ret);
 
     return ret;
 
@@ -86,7 +67,28 @@ class Input extends React.Component{
 
     constructor(props){
         super(props);
-        this.studentUpdate = this.studentUpdate.bind(this);
+        this.state = {
+            name: '',
+            displayCourses: [],
+            availCourses: []
+        
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    handleChange(event){
+        this.setState({name: event.target.value});
+    }
+
+    handleSubmit(event){
+        store.dispatch(changeStudent(this.state.name));
+        this.setState({
+            displayCourses: store.getState().displayStudentCourses,
+            availCourses: availCourses(store.getState().displayStudentCourses)
+        });
+        event.preventDefault();
     }
 
 
@@ -94,11 +96,16 @@ class Input extends React.Component{
     render() {
         return (
         <div>
-            <em>Enter Name</em><br></br>
-            <input type ="text" name="input" value=" " />
-            <input type ="submit" name="nameButton" value="StudentSearch" onClick = {this.studentUpdate()}/>
-            <TakenTable data={student_data[0]["completed_courses"]} />
-            <AvailableTable data={availCourses(student_data[0]["completed_courses"])} />
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Name
+                    <input type="text" value = {this.state.name} onChange = {this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+                    
+            <TakenTable data={this.state.displayCourses} />
+            <AvailableTable data={this.state.availCourses} />
         </div>
         
         );

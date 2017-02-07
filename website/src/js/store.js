@@ -2,45 +2,41 @@
 /*
  * action types
  */
-export const ADD_COURSE = 'ADD_COURSE';
-export const ADD_STUDENT = 'ADD_STUDENT';
 
+export const CHANGE_STUDENT = 'CHANGE_STUDENT';
 
 
 
 /*
  * action creators
  */
-export function addCourse(courseName,courseGrade,courseDepartment){
+
+export function changeStudent(studentName){
     return {
-        type: ADD_COURSE,
-        course:courseName,
-        grade: courseGrade,
-        department:courseDepartment
+        type: CHANGE_STUDENT,
+        name:studentName
     };
-}
 
 
-export function addStudent(studentName){
-    return {
-        type: ADD_STUDENT,
-        student_name: studentName,
-        completed_courses: []
-    };
 }
+
 
 
 
 
 
 /*
+ * LOAD IN MOCK JSON DATA
+ */
+var student_data = require('./student_data.json');
+
+/*
  * initial state
  */
-
 const initialState = {
-    displayStudent: 'NONE',
+    displayStudent: '',
     displayStudentCourses: [],
-    allStudents: [] 
+    allStudents: student_data 
 }
 
 
@@ -54,36 +50,24 @@ const initialState = {
 
 export function courseApp(state = initialState,action){
     switch(action.type){
-        case ADD_STUDENT:
+        case CHANGE_STUDENT:
+           // find student in state.allstudents
+           var obj = state.allStudents.find(s => s.student_name===action.name);
+           var newDisplay = [];
+           if(obj !=undefined){
+               newDisplay = obj.completed_courses;
+           }
             return Object.assign({},state,{
-                displayStudent: action.student_name,
-                displayStudentCourses: [],
-                allStudents: [
-                    ...state.allStudents,
-                    {
-                        student_name: action.student_name,
-                        completed_courses: []
-                    }
-                ]
-                }
-                );
-         case ADD_COURSE:
-            var updatedCourses = [
-                ...state.displayStudentCourses,
-                {
-                    course: action.course,
-                    grade: action.grade, 
-                    department: action.department
-                }
-            ];
-                
-            return Object.assign({},state,displayStudentCourses: updatedCourses,
-                    allStudents[state.displayStudent].completed_courses = updatedCourses);
-
-         default:
+                displayStudent: action.name,
+                displayStudentCourses:newDisplay
+            }
+            );
+    default:
+            console.log("yo");
             return state;
 
-        }
+    }
+
     // return init state
     return state;
 }

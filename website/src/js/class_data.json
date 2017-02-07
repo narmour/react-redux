@@ -2,27 +2,32 @@
   {
     "title":"CS115",
     "prereqs": [],
-    "type":"CORE"
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
     "title":"CS215",
     "prereqs":["CS115"],
-    "type":"CORE"
+    "type":"CORE",
+    "department":"Computer Science"
   },
   {
     "title":"CS242",
     "prereqs":[],
-    "type":"CORE"
+    "type":"CORE",
+    "department":"Computer Science"
   },
   {
     "title":"CS252",
     "prereqs":["CS115","CS215","CS242"],
-    "type":"CORE"
+    "type":"CORE",
+    "department":"Computer Science"
   },
   {
     "title":"CS315",
     "prereqs":["CS115", "CS215"],
-    "type":"CORE"
+    "type":"CORE",
+    "department": "Computer Science"
   },
   {
     "title":"CS351",
