@@ -9877,9 +9877,81 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.F = F;
-function F() {
-    console.log("yo");
+exports.addCourse = addCourse;
+exports.addStudent = addStudent;
+exports.courseApp = courseApp;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/*
+ * action types
+ */
+var ADD_COURSE = exports.ADD_COURSE = 'ADD_COURSE';
+var ADD_STUDENT = exports.ADD_STUDENT = 'ADD_STUDENT';
+
+/*
+ * action creators
+ */
+function addCourse(courseName, courseGrade, courseDepartment) {
+    return {
+        type: ADD_COURSE,
+        course: courseName,
+        grade: courseGrade,
+        department: courseDepartment
+    };
+}
+
+function addStudent(studentName) {
+    return {
+        type: ADD_STUDENT,
+        student_name: studentName,
+        completed_courses: []
+    };
+}
+
+/*
+ * initial state
+ */
+
+var initialState = {
+    displayStudent: 'NONE',
+    displayStudentCourses: [],
+    allStudents: []
+};
+
+/*
+ * reducers
+ */
+
+function courseApp() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case ADD_STUDENT:
+            return Object.assign({}, state, {
+                displayStudent: action.student_name,
+                displayStudentCourses: [],
+                allStudents: [].concat(_toConsumableArray(state.allStudents), [{
+                    student_name: action.student_name,
+                    completed_courses: []
+                }])
+            });
+        case ADD_COURSE:
+            var updatedCourses = [].concat(_toConsumableArray(state.displayStudentCourses), [{
+                course: action.course,
+                grade: action.grade,
+                department: action.department
+            }]);
+
+            return Object.assign({}, state, displayStudentCourses, allStudents[state.displayStudent].completed_courses = updatedCourses);
+
+        default:
+            return state;
+
+    }
+    // return init state
+    return state;
 }
 
 /***/ }),
@@ -22933,8 +23005,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _store.F)();
-
 /*
  *
  * CourseFinder -  contains input box, courses taken table,available courses table
@@ -22950,6 +23020,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  */
 var student_data = __webpack_require__(90);
 var class_data = __webpack_require__(89);
+
+/*
+ * CREATE STORE
+ */
+
+var store = (0, _redux.createStore)(_store.courseApp);
+console.log(store.getState());
 
 /*
  * Given completed_courses list, return array of classes with prereqs met and not taken already
@@ -22994,10 +23071,13 @@ function availCourses(completed_courses) {
 var Input = function (_React$Component) {
     _inherits(Input, _React$Component);
 
-    function Input() {
+    function Input(props) {
         _classCallCheck(this, Input);
 
-        return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
+
+        _this.studentUpdate = _this.studentUpdate.bind(_this);
+        return _this;
     }
 
     _createClass(Input, [{
@@ -23006,9 +23086,22 @@ var Input = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement(
+                    'em',
+                    null,
+                    'Enter Name'
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('input', { type: 'text', name: 'input', value: ' ' }),
+                _react2.default.createElement('input', { type: 'submit', name: 'nameButton', value: 'StudentSearch', onClick: this.studentUpdate() }),
                 _react2.default.createElement(TakenTable, { data: student_data[0]["completed_courses"] }),
                 _react2.default.createElement(AvailableTable, { data: availCourses(student_data[0]["completed_courses"]) })
             );
+        }
+    }, {
+        key: 'studentUpdate',
+        value: function studentUpdate() {
+            //console.log(window.document.getElementById("input").value);
         }
     }]);
 

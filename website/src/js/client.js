@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
-import  {F} from './store';
+import {courseApp} from './store';
 
-F();
 
 
 /*
@@ -33,6 +32,14 @@ F();
  */
 var student_data = require('./student_data.json');
 var class_data = require('./class_data.json');
+
+
+/*
+ * CREATE STORE
+ */
+
+var store = createStore(courseApp);
+console.log(store.getState());
 
 
 
@@ -76,18 +83,32 @@ function availCourses(completed_courses){
 }
 
 class Input extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.studentUpdate = this.studentUpdate.bind(this);
+    }
+
+
+
     render() {
         return (
         <div>
+            <em>Enter Name</em><br></br>
+            <input type ="text" name="input" value=" " />
+            <input type ="submit" name="nameButton" value="StudentSearch" onClick = {this.studentUpdate()}/>
             <TakenTable data={student_data[0]["completed_courses"]} />
             <AvailableTable data={availCourses(student_data[0]["completed_courses"])} />
         </div>
         
         );
-
-
-
     }
+
+    studentUpdate(){
+        //console.log(window.document.getElementById("input").value);
+    }
+
+
 
 
 
